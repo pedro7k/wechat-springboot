@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pedro.repository.GameRepository">
+
+    <insert id="addGame" parameterType="Game">
+        insert into game(sponsorid,title,date,time,place,type) values(#{sponserid},#{title},#{date},#{time},#{place},#{type})
+    </insert>
+
+    <select id="getId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select gameid from game where title=#{title}
+    </select>
+
+    <select id="findGames" parameterType="java.lang.String" resultType="Game">
+        select g.gameid,g.sponsorid,g.title,g.date,g.time,g.place,g.type from game g,bridge b where b.openid = #{openid} and b.gameid = g.gameid
+    </select>
+
+   <!-- <update id="update" parameterType="Student">
+        update stuinfo set name = #{name},score = #{score},birthday = #{birthday} where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from stuinfo where id = #{id}
+    </delete>-->
+
+</mapper>

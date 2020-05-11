@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pedro.repository.BridgeRepository">
+
+<!--    非举办者加入比赛-->
+    <insert id="joinGame">
+        insert into bridge set gameid=#{param2},openid=#{param1},ishost=0
+    </insert>
+
+<!--    举办者加入比赛-->
+    <insert id="hostGame">
+        insert into bridge set gameid=#{param2},openid=#{param1},ishost=1
+    </insert>
+
+<!--    通过openid和gameid判断是否是sponsor(已知是比赛参与者的情况下)-->
+    <select id="isSponsor" resultType="java.lang.Integer">
+        select ishost from bridge where gameid = #{param2} and openid = #{param1}
+    </select>
+
+<!--    通过openid和gameid判断是否是比赛参与者-->
+    <select id="isPlayer" resultType="java.lang.Integer">
+        select if(count(*)>0,1,0) from bridge where openid=#{param1} and gameid =#{param2}
+    </select>
+
+<!--    从bridge中删除比赛-->
+    <delete id="cancelGameFromBridge" parameterType="java.lang.Integer">
+        delete from bridge where gameid = #{gameid}
+    </delete>
+
+    <!--    从game中删除比赛-->
+    <delete id="cancelGameFromGame" parameterType="java.lang.Integer">
+        delete from game where gameid = #{gameid}
+    </delete>
+
+    <!--    用户点击一场比赛，返回所有User-->
+    <select id="findUsers" parameterType="java.lang.Integer" resultType="User">
+        select u.openid,u.name,u.img from user u, bridge b where b.gameid = #{gameid} and b.openid = u.openid
+    </select>
+</mapper>

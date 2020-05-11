@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /New
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wechat?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: WANGXIAN
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml
+  type-aliases-package: com.pedro.entity
+
