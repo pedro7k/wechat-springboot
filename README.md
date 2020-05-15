@@ -14,14 +14,17 @@
     - `util.js` 获取日期时间
     - `app.js` 每次进入小程序时调用
     - `app.json` 注册每个页面
+    
 - Java代码组成
     分为了controller-service-repository三层架构
-    - com.pedro.controller
-        处理来自客户端的不同请求
-    - com.pedro.service
-        对请求进行分发处理
-    - com.pedro.repository
-        连接数据库，处理数据
+    - `com.pedro.controller` - 处理来自客户端的不同请求
+    - `com.pedro.service` - 对请求进行分发处理
+    - `com.pedro.repository` - 连接数据库，处理数据
+    - `com.pedro.entity` - 对数据表进行映射的实体类
+    
+- resources
+    - `mapping` - 存放包含sql语句的xml文件，供mybatis使用
+    - `application.yml` - SpringBoot配置文件
     
     
 ## Demo
