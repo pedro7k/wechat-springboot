@@ -73,7 +73,7 @@ public class BridgeController {
     }
 
     @GetMapping("/wxSignUpGame")
-    protected void signUpGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void signUpGame(HttpServletRequest request, HttpServletResponse response){
         //who 要报名 which比赛
         String gameId = request.getParameter("gameId");
         HttpSession session = request.getSession();

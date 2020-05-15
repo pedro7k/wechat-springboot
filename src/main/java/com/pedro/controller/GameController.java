@@ -54,37 +54,39 @@ public class GameController {
     }
 
     @GetMapping("/wxGameInfo")
-    protected void addGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("接收到GET请求");
-        request.setCharacterEncoding("utf-8");
+    protected void addGame(HttpServletRequest request, HttpServletResponse response){
+        try {
+            System.out.println("接收到GET请求");
+            request.setCharacterEncoding("utf-8");
         /*Enumeration<String> parameterNames = request.getParameterNames();
         while(parameterNames.hasMoreElements()){
             String element = parameterNames.nextElement();
             System.out.println(element +": "+request.getParameter(element));
         }*/
-        //获取比赛信息和发起人的openid
-        HttpSession session = request.getSession();
-        String OpenId = (String) session.getAttribute("openId");
-        if (OpenId == "" || OpenId == null)
-            return;
-        String date = request.getParameter("date");
-        String time = request.getParameter("time");
-        String site = request.getParameter("site");
-        String name = request.getParameter("name");
-        String content = request.getParameter("content");
-        System.out.println("提交的比赛信息： ");
-        System.out.println(OpenId + " " + date + " " + time + " " + site + " " + name + " " + content);
+            //获取比赛信息和发起人的openid
+            HttpSession session = request.getSession();
+            String OpenId = (String) session.getAttribute("openId");
+            if (OpenId == "" || OpenId == null)
+                return;
+            String date = request.getParameter("date");
+            String time = request.getParameter("time");
+            String site = request.getParameter("site");
+            String name = request.getParameter("name");
+            String content = request.getParameter("content");
+            System.out.println("提交的比赛信息： ");
+            System.out.println(OpenId + " " + date + " " + time + " " + site + " " + name + " " + content);
 
-        //addGame to DB
-        Game newGame = new Game(OpenId, content, date, time, site, name);
+            //addGame to DB
+            Game newGame = new Game(OpenId, content, date, time, site, name);
         /*GameRepositoryImpl gameRepository = new GameRepositoryImpl();
         int gameid = gameRepository.addGame(newGame);*/
-        int gameid = gameService.addGame(newGame);
+            int gameid = gameService.addGame(newGame);
 
-        response.setContentType("text/html;charset=utf-8");
-        response.getWriter().write(Integer.toString(gameid));
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().write(Integer.toString(gameid));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-
 
 }
